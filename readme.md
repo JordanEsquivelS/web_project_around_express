@@ -61,4 +61,3 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
   ![Error de Usuario](./demo_images/get_no_found.png)
 
 - En caso de un error del servidor, devuelve un error 500 con el mensaje "¡Algo salió mal!".
-  ![Error de Usuario](./demo_images/user_error.png)
