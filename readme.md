@@ -60,4 +60,12 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
   ![Error de Usuario](./demo_images/get_no_found.png)
 
+- Si se solicita un usuario con `Id invalido`, devuelve un mensaje de error: ID de usuario no encontrado. (Ejemplo Id: `1212`)
+
+  ![Error id de tarjeta](./demo_images/get_users_id_invalido.png)
+
+- Si se solicita una tarjeta con `Id invalido`, devuelve un mensaje de error: ID de tarjeta no encontrado. (Ejemplo Id: `44444444`)
+
+  ![Error id de tarjeta](./demo_images/get_cards_id_invalido.png)
+
 - En caso de un error del servidor, devuelve un error 500 con el mensaje "¡Algo salió mal!".
