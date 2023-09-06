@@ -57,7 +57,8 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 ## Manejo de Errores
 
 - Si se accede a un recurso no existente, devuelve un error 404 con el mensaje "Recurso solicitado no encontrado".
-  ![Error de Usuario](./demo_images/user_error.png)
+
+  ![Error de Usuario](./demo_images/get_no_found.png)
 
 - En caso de un error del servidor, devuelve un error 500 con el mensaje "¡Algo salió mal!".
   ![Error de Usuario](./demo_images/user_error.png)
