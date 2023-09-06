@@ -69,3 +69,9 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
   ![Error id de tarjeta](./demo_images/get_cards_id_invalido.png)
 
 - En caso de un error del servidor, devuelve un error 500 con el mensaje "¡Algo salió mal!".
+
+## Demostración Video - Servidor
+
+Haz clic en el siguiente enlace para ver la demostración del proyecto en YouTube:
+
+[Ver Demostración en YouTube](https://youtu.be/4xZyMsrSh4g)
