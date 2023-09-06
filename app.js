@@ -1,9 +1,12 @@
+/* eslint-disable import/no-dynamic-require */
 const express = require('express');
+const path = require('path');
 
 const app = express();
 const PORT = 3000;
-const cardsRouter = require('./routes/cards');
-const usersRouter = require('./routes/users');
+
+const cardsRouter = require(path.join(__dirname, 'routes', 'cards.js'));
+const usersRouter = require(path.join(__dirname, 'routes', 'users.js'));
 
 app.use(express.json());
 
