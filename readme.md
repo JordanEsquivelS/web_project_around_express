@@ -37,17 +37,21 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 ### Usuarios
 
 - `GET /users` : Devuelve una lista de todos los usuarios.
-  ![Solicitud de Usuarios](./demo_images/request_users.png)
 
-- `GET /users/:id` : Devuelve un usuario específico basado en su ID.
-  ![Solicitud de Usuarios](./demo_images/request_users.png)
+  ![Solicitud de Usuarios](./demo_images/get_users.png)
+
+- `GET /users/:id` : Devuelve un usuario específico basado en su ID. (Ejemplo Id: `f20c9c560aa652a72cba323f` )
+
+  ![Solicitud de Usuarios segun Id](./demo_images/get_users_id.png)
 
 ### Tarjetas (Cards)
 
 - `GET /cards` : Devuelve una lista de todas las tarjetas.
+
   ![Solicitud de Tarjetas](./demo_images/get_cards.png)
 
 - `GET /cards/:cardId` : Devuelve una tarjeta específica basada en su ID. (Ejemplo Id: `5d2090310fdbbf001ffdf72d` )
+
   ![Solicitud de Tarjetas por id](./demo_images/get_cards_id.png)
 
 ## Manejo de Errores
