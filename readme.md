@@ -72,6 +72,6 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
 ## Demostración Video - Servidor
 
-Haz clic en el siguiente enlace para ver la demostración del proyecto en YouTube:
+Haz clic en el siguiente enlace para ver la demostración del proyecto en YouTube :
 
 [![Ver Demostración en YouTube](./demo_images/Miniatura_vid.png)](https://youtu.be/4xZyMsrSh4g)
