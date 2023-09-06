@@ -4,7 +4,6 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-// Ruta para obtener la lista completa de usuarios
 router.get('/', (req, res) => {
   const usersPath = path.join(__dirname, '..', 'data', 'users.json');
   fs.readFile(usersPath, 'utf8', (err, data) => {
@@ -19,7 +18,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// Ruta para obtener un usuario por ID
 router.get('/:id', (req, res) => {
   const usersPath = path.join(__dirname, '..', 'data', 'users.json');
   fs.readFile(usersPath, 'utf8', (err, data) => {
