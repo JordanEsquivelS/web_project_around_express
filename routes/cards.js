@@ -4,10 +4,8 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-// Ruta al archivo cards.json
 const cardsPath = path.join(__dirname, '..', 'data', 'cards.json');
 
-// Lista JSON de todas las tarjetas
 router.get('/cards', (req, res) => {
   fs.readFile(cardsPath, 'utf8', (err, data) => {
     try {
@@ -21,7 +19,6 @@ router.get('/cards', (req, res) => {
   });
 });
 
-// Obtiene una tarjeta específica por ID
 router.get('/cards/:cardId', (req, res) => {
   const { cardId } = req.params;
 
