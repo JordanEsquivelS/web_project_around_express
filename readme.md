@@ -30,22 +30,30 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
 3. **Ejecutar en modo de desarrollo**: Una vez que todas las dependencias estén instaladas, puedes ejecutar el proyecto en modo de desarrollo con el siguiente comando:
 
-npm start
+   npm start
 
-## Endpoints
-
-### Tarjetas (Cards)
-
-- `GET /cards` : Devuelve una lista de todas las tarjetas.
-- `GET /cards/:cardId` : Devuelve una tarjeta específica basada en su ID.
+## Demostración - Endpoints
 
 ### Usuarios
 
 - `GET /users` : Devuelve una lista de todos los usuarios.
+  ![Solicitud de Usuarios](./demo_images/request_users.png)
+
 - `GET /users/:id` : Devuelve un usuario específico basado en su ID.
+  ![Solicitud de Usuarios](./demo_images/request_users.png)
+
+### Tarjetas (Cards)
+
+- `GET /cards` : Devuelve una lista de todas las tarjetas.
+  ![Solicitud de Tarjetas](./demo_images/get_cards.png)
+
+- `GET /cards/:cardId` : Devuelve una tarjeta específica basada en su ID. (Ejemplo Id: `5d2090310fdbbf001ffdf72d` )
+  ![Solicitud de Tarjetas por id](./demo_images/get_cards_id.png)
 
 ## Manejo de Errores
 
 - Si se accede a un recurso no existente, devuelve un error 404 con el mensaje "Recurso solicitado no encontrado".
+  ![Error de Usuario](./demo_images/user_error.png)
 
 - En caso de un error del servidor, devuelve un error 500 con el mensaje "¡Algo salió mal!".
+  ![Error de Usuario](./demo_images/user_error.png)
