@@ -9,7 +9,7 @@ app.use(express.json());
 
 app.use(cardsRouter);
 
-app.use('/users', usersRouter);
+app.use(usersRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Recurso solicitado no encontrado' });

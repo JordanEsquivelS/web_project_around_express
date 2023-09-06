@@ -4,7 +4,7 @@ const router = express.Router();
 const fs = require('fs');
 const path = require('path');
 
-router.get('/', (req, res) => {
+router.get('/users', (req, res) => {
   const usersPath = path.join(__dirname, '..', 'data', 'users.json');
   fs.readFile(usersPath, 'utf8', (err, data) => {
     try {
@@ -18,7 +18,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/users/:id', (req, res) => {
   const usersPath = path.join(__dirname, '..', 'data', 'users.json');
   fs.readFile(usersPath, 'utf8', (err, data) => {
     try {
