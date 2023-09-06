@@ -1,11 +1,22 @@
-const express = require("express");
+const express = require('express');
+
 const app = express();
 const PORT = 3000;
+const cardsRouter = require('./routes/cards');
+const usersRouter = require('./routes/users');
 
-app.get("/", (req, res) => {
-  res.send("¡Hola mundo jeje!");
+app.use(express.json());
+
+app.use(cardsRouter);
+
+app.use('/users', usersRouter);
+
+app.use((req, res) => {
+  res.status(404).json({ message: 'Recurso solicitado no encontrado' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.use((req, res) => {
+  res.status(500).send('¡Algo salió mal!');
 });
+
+app.listen(PORT, () => {});
