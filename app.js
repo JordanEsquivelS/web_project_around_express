@@ -13,7 +13,7 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '6504b8c73db08aa6954905b4', // Pega el _id del usuario de prueba
+    _id: '6504b8c73db08aa6954905b4',
   };
   next();
 });
