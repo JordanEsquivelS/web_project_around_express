@@ -23,10 +23,8 @@ app.use((req, res) => {
   res.status(500).send('¡Algo salió mal!');
 });
 
-mongoose.connect('mongodb://localhost:27017/aroundb', {
+mongoose.connect('mongodb://127.0.0.1:27017/aroundb', {
   useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
   useUnifiedTopology: true,
 });
 
