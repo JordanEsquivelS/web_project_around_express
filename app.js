@@ -32,9 +32,8 @@ mongoose.connect('mongodb://localhost:27017/aroundb', {
 
 const db = mongoose.connection;
 
+// eslint-disable-next-line no-console
 db.on('error', console.error.bind(console, 'Error de conexión a MongoDB:'));
 db.once('open', () => {
-  console.log('Conectado a MongoDB');
-
   app.listen(PORT, () => {});
 });
