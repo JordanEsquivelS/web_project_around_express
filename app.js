@@ -1,6 +1,7 @@
 /* eslint-disable import/no-dynamic-require */
 const express = require('express');
 const path = require('path');
+const mongoose = require('mongoose');
 
 const app = express();
 const PORT = 3000;
@@ -22,4 +23,18 @@ app.use((req, res) => {
   res.status(500).send('¡Algo salió mal!');
 });
 
-app.listen(PORT, () => {});
+mongoose.connect('mongodb://localhost:27017/aroundb', {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+  useUnifiedTopology: true,
+});
+
+const db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'Error de conexión a MongoDB:'));
+db.once('open', () => {
+  console.log('Conectado a MongoDB');
+
+  app.listen(PORT, () => {});
+});
