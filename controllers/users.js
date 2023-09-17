@@ -16,15 +16,17 @@ const getUsers = async (req, res) => {
 
 const getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.params.userId);
-
-    if (!user) {
-      return res.status(404).send({ message: 'ID de usuario no encontrado' });
-    }
+    const user = await User.findById(req.params.userId).orFail(() => {
+      const error = new Error('ID de usuario no encontrado');
+      error.statusCode = 404;
+      throw error;
+    });
 
     return res.status(200).send(user);
   } catch (err) {
-    return res.status(500).send({ message: 'Error al obtener el usuario' });
+    const status = err.statusCode || 500;
+    const message = err.message || 'Error al obtener el usuario';
+    return res.status(status).send({ message });
   }
 };
 
