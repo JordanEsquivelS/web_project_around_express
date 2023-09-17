@@ -1,4 +1,5 @@
 const Card = require('../models/card');
+const mongoose = require('mongoose');
 
 exports.getCards = async (req, res) => {
   try {
@@ -28,15 +29,23 @@ exports.createCard = async (req, res) => {
 };
 
 exports.deleteCard = async (req, res) => {
-  try {
-    const card = await Card.findByIdAndRemove(req.params._id);
+  const cardId = req.params._id;
 
-    if (!card) {
-      return res.status(404).send({ message: 'Tarjeta no encontrada' });
-    }
+  if (!mongoose.Types.ObjectId.isValid(cardId)) {
+    return res.status(404).send({ message: 'Id de tarjeta no encontrado' });
+  }
+
+  try {
+    await Card.findByIdAndRemove(cardId).orFail(() => {
+      const error = new Error('No se ha encontrado ninguna tarjeta con esa id');
+      error.statusCode = 404;
+      throw error;
+    });
 
     return res.status(200).send({ message: 'Tarjeta eliminada correctamente' });
   } catch (error) {
-    return res.status(500).send({ message: 'Error al eliminar la tarjeta' });
+    const status = error.statusCode || 500;
+    const message = error.message || 'Error al eliminar la tarjeta';
+    return res.status(status).send({ message });
   }
 };
