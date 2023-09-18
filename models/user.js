@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
 
-// Expresión regular para validar URLs
-const urlRegex = /^(http|https):\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/;
+const urlRegex = /^(http|https):\/\/(www\.)?[^/\s]+\/?[^\s]*[#]?$/;
 
-// Esquema del usuario
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
