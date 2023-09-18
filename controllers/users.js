@@ -1,4 +1,5 @@
 /* eslint-disable import/no-dynamic-require */
+const mongoose = require('mongoose');
 const path = require('path');
 
 const User = require(path.join(__dirname, '..', 'models', 'user'));
@@ -15,9 +16,15 @@ const getUsers = async (req, res) => {
 };
 
 const getUserById = async (req, res) => {
+  const userId = req.params._id;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(404).send({ message: 'ID de usuario no válido' });
+  }
+
   try {
-    const user = await User.findById(req.params.userId).orFail(() => {
-      const error = new Error('ID de usuario no encontrado');
+    const user = await User.findById(userId).orFail(() => {
+      const error = new Error('No se ha encontrado ningún usuario con ese ID');
       error.statusCode = 404;
       throw error;
     });

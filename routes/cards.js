@@ -12,6 +12,7 @@ const cardController = require(path.join(
 const router = express.Router();
 
 router.get('/cards', cardController.getCards);
+router.get('/cards/:_id', cardController.getCardById);
 router.post('/cards', cardController.createCard);
 router.delete('/cards/:_id', cardController.deleteCard);
 router.put('/cards/:_id/likes', cardController.likeCard);
