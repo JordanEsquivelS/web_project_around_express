@@ -1,5 +1,8 @@
+/* eslint-disable import/no-dynamic-require */
 const mongoose = require('mongoose');
-const Card = require('../models/card');
+const path = require('path');
+
+const Card = require(path.join(__dirname, '..', 'models', 'card'));
 
 exports.getCards = async (req, res) => {
   try {
@@ -47,5 +50,40 @@ exports.deleteCard = async (req, res) => {
     const status = error.statusCode || 500;
     const message = error.message || 'Error al eliminar la tarjeta';
     return res.status(status).send({ message });
+  }
+};
+
+exports.likeCard = async (req, res) => {
+  try {
+    const updatedCard = await Card.findByIdAndUpdate(
+      req.params._id,
+      { $addToSet: { likes: req.user._id } },
+      { new: true },
+
+    ).orFail(new Error('Tarjeta no encontrada'));
+
+    return res.status(200).send(updatedCard);
+  } catch (error) {
+    if (error.message === 'Tarjeta no encontrada') {
+      return res.status(404).send({ message: error.message });
+    }
+    return res.status(500).send({ message: 'Error al dar like a la tarjeta' });
+  }
+};
+
+exports.dislikeCard = async (req, res) => {
+  try {
+    const updatedCard = await Card.findByIdAndUpdate(
+      req.params._id,
+      { $pull: { likes: req.user._id } },
+      { new: true },
+    ).orFail(new Error('Tarjeta no encontrada'));
+
+    return res.status(200).send(updatedCard);
+  } catch (error) {
+    if (error.message === 'Tarjeta no encontrada') {
+      return res.status(404).send({ message: error.message });
+    }
+    return res.status(500).send({ message: 'Error al dar dislike a la tarjeta' });
   }
 };
