@@ -22,12 +22,17 @@ app.use(cardsRouter);
 
 app.use(usersRouter);
 
-app.use((req, res) => {
-  res.status(404).json({ message: 'Recurso solicitado no encontrado' });
+app.use((req, res, next) => {
+  const error = new Error('Recurso solicitado no encontrado');
+  error.status = 404;
+  next(error);
 });
 
-app.use((req, res) => {
-  res.status(500).send('¡Algo salió mal!');
+// eslint-disable-next-line no-unused-vars
+app.use((err, req, res, next) => {
+  const status = err.status || 500;
+  const message = err.message || 'Ocurrió un error interno';
+  res.status(status).json({ message });
 });
 
 mongoose.connect('mongodb://127.0.0.1:27017/aroundb', {
