@@ -4,16 +4,18 @@ const path = require('path');
 
 const Card = require(path.join(__dirname, '..', 'models', 'card'));
 
-exports.getCards = async (req, res) => {
+exports.getCards = async (req, res, next) => {
   try {
     const cards = await Card.find({});
     return res.status(200).send(cards);
   } catch (error) {
-    return res.status(500).send({ message: 'Error al obtener las tarjetas' });
+    error.status = 500;
+    error.message = 'Error al obtener las tarjetas';
+    return next(error);
   }
 };
 
-exports.createCard = async (req, res) => {
+exports.createCard = async (req, res, next) => {
   const { name, link } = req.body;
 
   try {
@@ -25,57 +27,65 @@ exports.createCard = async (req, res) => {
     await card.save();
     return res.status(201).send(card);
   } catch (error) {
-    return res
-      .status(400)
-      .send({ message: 'Error al crear la tarjeta', error });
+    error.status = 400;
+    error.message = 'Error al crear la tarjeta';
+    return next(error);
   }
 };
 
-exports.getCardById = async (req, res) => {
+exports.getCardById = async (req, res, next) => {
   const cardId = req.params._id;
 
   if (!mongoose.Types.ObjectId.isValid(cardId)) {
-    return res.status(404).send({ message: 'Id de tarjeta no válido' });
+    const error = new Error('Id de tarjeta no válido');
+    error.status = 404;
+    return next(error);
   }
 
   try {
     const card = await Card.findById(cardId).orFail(() => {
       const error = new Error('Id de tarjeta no encontrado');
-      error.statusCode = 404;
+      error.status = 404;
       throw error;
     });
 
     return res.status(200).send(card);
   } catch (error) {
-    const status = error.statusCode || 500;
-    const message = error.message || 'Error al obtener la tarjeta';
-    return res.status(status).send({ message });
+    if (!error.status) {
+      error.status = 500;
+      error.message = 'Error al obtener la tarjeta';
+    }
+    return next(error);
   }
 };
 
-exports.deleteCard = async (req, res) => {
+exports.deleteCard = async (req, res, next) => {
   const cardId = req.params._id;
 
   if (!mongoose.Types.ObjectId.isValid(cardId)) {
-    return res.status(404).send({ message: 'Id de tarjeta no válido' });
+    const error = new Error('Id de tarjeta no válido');
+    error.status = 404;
+    return next(error);
   }
 
   try {
     await Card.findByIdAndRemove(cardId).orFail(() => {
-      const error = new Error('No se ha encontrado ninguna tarjeta con esa id');
-      error.statusCode = 404;
+      const error = new Error('Id de tarjeta no encontrado');
+      error.status = 404;
       throw error;
     });
 
     return res.status(200).send({ message: 'Tarjeta eliminada correctamente' });
   } catch (error) {
-    const status = error.statusCode || 500;
-    const message = error.message || 'Error al eliminar la tarjeta';
-    return res.status(status).send({ message });
+    if (!error.status) {
+      error.status = 500;
+      error.message = 'Error al eliminar la tarjeta';
+    }
+    return next(error);
   }
 };
 
-exports.likeCard = async (req, res) => {
+exports.likeCard = async (req, res, next) => {
   try {
     const updatedCard = await Card.findByIdAndUpdate(
       req.params._id,
@@ -85,14 +95,18 @@ exports.likeCard = async (req, res) => {
 
     return res.status(200).send(updatedCard);
   } catch (error) {
-    if (error.message === 'Tarjeta no encontrada') {
-      return res.status(404).send({ message: error.message });
+    if (error instanceof mongoose.Error.CastError || error.message === 'Tarjeta no encontrada') {
+      error.status = 404;
+      error.message = 'Tarjeta no encontrada';
+    } else {
+      error.status = 500;
+      error.message = 'Error al dar like a la tarjeta';
     }
-    return res.status(500).send({ message: 'Error al dar like a la tarjeta' });
+    return next(error);
   }
 };
 
-exports.dislikeCard = async (req, res) => {
+exports.dislikeCard = async (req, res, next) => {
   try {
     const updatedCard = await Card.findByIdAndUpdate(
       req.params._id,
@@ -102,11 +116,13 @@ exports.dislikeCard = async (req, res) => {
 
     return res.status(200).send(updatedCard);
   } catch (error) {
-    if (error.message === 'Tarjeta no encontrada') {
-      return res.status(404).send({ message: error.message });
+    if (error instanceof mongoose.Error.CastError || error.message === 'Tarjeta no encontrada') {
+      error.status = 404;
+      error.message = 'Tarjeta no encontrada';
+    } else {
+      error.status = 500;
+      error.message = 'Error al dar dislike a la tarjeta';
     }
-    return res
-      .status(500)
-      .send({ message: 'Error al dar dislike a la tarjeta' });
+    return next(error);
   }
 };
