@@ -16,7 +16,7 @@ Entorno de ejecución que permite correr JavaScript en el servidor. Es la base s
 
 Módulos integrados en Node.js. `FS` se utiliza para la lectura de archivos, y `Path` para gestionar y resolver rutas de archivos.
 
-## Instalacion:
+## Instalación:
 
 Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
@@ -42,7 +42,7 @@ Sigue estos pasos para configurar y ejecutar el proyecto en tu máquina local:
 
 - `GET /users/:id` : Devuelve un usuario específico basado en su ID. (Ejemplo Id: `f20c9c560aa652a72cba323f` )
 
-  ![Solicitud de Usuarios segun Id](./demo_images/get_users_id.png)
+  ![Solicitud de Usuarios según Id](./demo_images/get_users_id.png)
 
 ### Tarjetas (Cards)
 
